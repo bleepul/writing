@@ -1,0 +1,15 @@
+import bookparser
+from neo4j import GraphDatabase
+
+uri = "bolt://localhost:7687"
+d = GraphDatabase.driver(uri, auth=("neo4j", "password"))
+tx = d.session()
+
+for i in range(3):
+    result = bookparser.SentenceGetter.get_random_sentence(tx)
+    print(dir(result))
+    for record in result:
+        #a = record.values(0)
+        print(record.values(0)[0])
+        #print(dir(record))
+        #print(record["a.text"])
